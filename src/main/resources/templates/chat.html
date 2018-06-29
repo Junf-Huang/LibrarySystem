@@ -1,0 +1,100 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://lib.baomitu.com/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/chat.css" th:href="@{/css/chat.css}" rel="stylesheet">
+    <script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script src="https://lib.baomitu.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://lib.baomitu.com/stomp.js/2.3.3/stomp.min.js"></script>
+    <title>Chat</title>
+</head>
+<body>
+
+        <div class="container">
+            <div class="border-top-green">
+            </div>
+                <div class="chat-about border ">
+                    <img class="avatar m-2" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" />
+                    <span th:text="${stuName}">XXX</span>
+                    <span th:text="${you}" class="Id" id="you">XXX</span>
+                    <span th:text="${me}" class="Id" id="me">XXX</span>
+                </div>
+                    <div class="row">
+                        <div class="col" >
+
+                                    <div class="message-list-wrapper">
+                                        <ul class="message-list" >
+
+                                            <li class="left">
+                                                <img  class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" >
+                                                <div class="body">
+                                                    <div class="badge message">
+                                                        Hey, are you busy at the moment?
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="left">
+                                                <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                                <div class="body">
+                                                    <div class="badge message">
+                                                        Hey, are you busy at the moment?
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="right">
+                                                <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" >
+                                                <div class="body">
+                                                        <div class="badge  message">
+                                                        Um, no actually. I've just wrapped up my last project for the day.
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="left">
+                                                <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                                <div class="body">
+                                                    <div class="badge message">
+                                                        Well, I wanted to find out if you have any plans for tonight.
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="right">
+                                                <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" >
+                                                <div class="body">
+                                                    <div class="badge message">
+                                                        Wow that sounds great.
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <textarea id="btn-input" class="form-control" placeholder="Type your message here..."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 ">
+
+                                        <div class="col text-right">
+                                            <button class="btn btn-success btn-sm" id="send">Send</button>
+                                        </div>
+                                    </div>
+        </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
+</body>
+</html>

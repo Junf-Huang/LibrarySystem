@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://lib.baomitu.com/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet">
+    <title>Sign in</title>
+</head>
+<body>
+
+<form class="form-signin" id="loginForm" th:action="@{/sign-in}" method="post" enctype="multipart/form-data">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+    <div class="alert alert-danger alert-dismissible fade show" th:if="${param.error}"  role="alert">
+        账户或密码错误
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-success alert-dismissible fade show" th:if="${param.logout}"  role="alert">
+        您已注销成功
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!--name' value have to equal to username, UserDetails regard it as its default value's name -->
+    <label for="stuID" class="sr-only">Student ID</label>
+    <input type="text" id="stuID" name="username" class="form-control mb-2" placeholder="Student ID" required autofocus>
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <br/>
+    <div class="container">
+        <div class="row" >
+
+        <div class="col-md-6">
+            &copy; 2017-2018
+        </div>
+        <div class="col-md-6">
+            <a href="sign-up">Create&nbsp;an&nbsp;account</a>
+        </div>
+        </div>
+    </div>
+</form>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+</body>
+</html>

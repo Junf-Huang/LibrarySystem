@@ -1,0 +1,127 @@
+body{
+    margin-top: 10px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Component: Chat */
+
+.message-list-wrapper {
+    background-color: #f4f9f4;
+    border: 1px solid #ddd;
+    height: 452px;
+    position: relative;
+    overflow-y:scroll;
+}
+
+.message-list {
+    padding: 0;
+}
+.message-list li {
+    display: block;
+    padding: 20px 10px;
+    clear: both;
+    position: relative;
+    color: #33354a;
+}
+.message-list li.left .avatar {
+    margin-right: 12px;
+    display: block;
+    float: left;
+}
+.avatar {
+    width: 40px;
+    height: auto;
+    border: 2px solid transparent;
+}
+
+.message-list li.left .body {
+    display: block;
+    width: 87%;
+    float: left;
+    position: relative;
+}
+.message-list li.left .body .message {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 16px;
+    display: inline-block;
+    width: auto;
+    background: #a6ed8e;
+}
+.message-list li.left .body .message:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 9px 9px 9px 0;
+    border-color: transparent #a6ed8e transparent transparent;
+    left: 0;
+    top: 10px;
+    margin-left: -8px;
+}
+
+
+
+.message-list li.right .avatar {
+    margin-left: 12px;
+    display: block;
+    float: right;
+}
+
+.message-list li.right .body {
+    display: block;
+    width: 87%;
+    float: right;
+    position: relative;
+    text-align: right;
+}
+.message-list li.right .message {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 16px;
+    display: inline-block;
+    width: auto;
+    background: #a5dee5;
+}
+.message-list li.right .body .message:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 9px 9px 9px 0;
+    border-color: transparent #a5dee5 transparent transparent;
+    right: 0;
+    top: 10px;
+    margin-right: -7px;
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.message-list li.right .body .message img {
+    max-width: 320px;
+    max-height: 320px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+
+
+.btn-green {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+    color: white;
+}
+
+.border-top-green {
+    border-top: 4px solid #1fab89 !important;
+}

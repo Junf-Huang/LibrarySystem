@@ -1,0 +1,88 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://lib.baomitu.com/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/signout.css" th:href="@{/css/signout.css}" rel="stylesheet">
+    <title>Sign up</title>
+</head>
+<body>
+    <div class="container">
+        <div class="py-4 text-center">
+            <h2>Student Information</h2>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form class="needs-validation" th:action="@{/addUser}" method="post">
+                    <div class="mb-3">
+                        <label for="stuID">Student ID</label>
+                        <input type="text" class="form-control" id="stuID" name="stuID" placeholder="Your ID" required>
+                        <div class="invalid-feedback">
+                            Please enter your ID.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="stuName">Student Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="stuName" name="stuName" placeholder="Your name" required>
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Set your password">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="stuSex">Sex</label>
+                            <select class="custom-select d-block w-100" id="stuSex" name="stuSex" required>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select your sex.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="stuBirth">Birthday</label>
+                            <input type="text" class="form-control" id="stuBirth" name="stuBirth" placeholder="1997-01-01">
+                            <div class="invalid-feedback">
+                                Please provide your birthday.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="stuPro">Profession</label>
+                            <input type="text" class="form-control" id="stuPro" name="stuPro" placeholder="">
+                            <div class="invalid-feedback">
+                                Profession required.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="stuCredit">Credit</label>
+                            <input type="text" class="form-control" id="stuCredit" name="stuCredit" placeholder="">
+                            <div class="invalid-feedback">
+                                Credit required.
+                            </div>
+                        </div>
+                    </div>
+                    <button class="my-4 btn btn-primary btn-lg btn-block" type="submit">Sign up</button>
+                </form>
+            </div>
+        </div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+</body>
+</html>

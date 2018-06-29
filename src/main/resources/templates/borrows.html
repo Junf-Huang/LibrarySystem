@@ -1,0 +1,226 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://lib.baomitu.com/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/books.css" th:href="@{/css/books.css}" rel="stylesheet">
+    <script src="https://lib.baomitu.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://lib.baomitu.com/stomp.js/2.3.3/stomp.min.js"></script>
+    <title>Page</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><span class="ml-3">Name</span></a>
+            <span class="text-white px-3" sec:authentication="name" id="me">XXX</span>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link text-white" th:href="@{/logout}">Sign out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+               <div class="sidebar-sticky ml-3">
+                   <ul class="nav flex-column">
+                       <li class="nav-item">
+                           <a class="nav-link" th:href="@{/home}">
+                               Books list
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" th:href="@{/search}">
+                               Search book
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link active" th:href="@{/borrows}">
+                               Borrow List
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" th:href="@{/users}">
+                               User list
+                           </a>
+                       </li>
+                   </ul>
+                
+               </div>
+            </nav>
+
+        <main class="col-md-10 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <div class="card">
+                <div class="card-body">
+                    <table class="table row">
+                        <thead class="col-md-12">
+                        <tr class="row mx-0">
+                            <th scope="col" class="col-3">ID</th>
+                            <th scope="col" class="col-3">ISBN</th>
+                            <th scope="col" class="col-3">NAME</th>
+                            <th scope="col" class="col-3"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="col-md-12">
+                        <tr th:each="book :${data.content}" class="row mx-0">
+                            <td th:text="${book.id}" class="col-3"></td>
+                            <td th:text="${book.bookISBN}" class="col-3"></td>
+                            <td th:text="${book.bookName}" class="col-3"></td>
+                                <td>
+                                    <a class="btn btn-danger delBtn" th:href="@{/returnBook/(bookId=${book.id})}" role="button">Return</a>
+                                </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <span id="page" th:text="${data.getTotalPages()}" hidden></span>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link" th:href="@{/borrows/(page=(${currentPage}==0?'0':${currentPage}-1))}" tabindex="-1">Previous</a>
+                            </li>
+
+                            <li class="page-item"
+                                th:each="i : ${#numbers.sequence(0, data.getTotalPages()-1)}"
+                                th:classappend="${currentPage}==${i}?'active':''">
+                                <a th:href="@{/borrows/(page=${i})}" th:text="${i}+1" class="page-link"></a>
+                            </li>
+
+                            <li class="page-item">
+                                <a class="page-link" th:href="@{/borrows/(page=(${currentPage}==${data.getTotalPages()-1}?${data.getTotalPages()-1}:${currentPage}+1))}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </main>
+
+        </div>
+    </div>
+
+
+            <div class="myForm">
+                <form th:action="@{/add}" method="post" enctype="multipart/form-data">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-3 align-self-center">
+                                            <img src="../static/cover/cover.svg" th:src="@{/cover/cover.svg}"  id="blah" class="my-3"/>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="imgInp" name="photo">
+                                            <input type="text"  id="bookPhoto" name="bookPhoto">
+                                            <label class="custom-file-label" for="imgInp">Choose file</label>
+                                        </div>
+                                   </div>
+                                        <div class="col-md-8 mb-3">
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bookISBN" >ISBN</label>
+                                            <input type="text" class="form-control" id="bookISBN" name="bookISBN" value="" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bookName" >Name</label>
+                                            <input type="text" class="form-control" id="bookName" name="bookName" value="" />
+                                        </div>
+                                     </div>
+
+                                     <div class="row">
+                                            <div class="col-md-6 mb-3">                                     
+                                                     <label for="publisher" >Publisher</label>
+                                                    <input type="text" class="form-control" id="publisher" name="publisher" value="" />
+                                            </div>                                      
+                                                <div class="col-md-6 mb-3">                        
+                                                   <label for="translator" >Translator</label>
+                                                   <input type="text" class="form-control" id="translator" name="translator" value="" />
+                                                </div>
+                                         </div>
+
+                                     <div class="row">
+                                            <div class="col-md-6 mb-3">                                     
+                                                     <label for="replicateQuantity" >Replica quantity</label>
+                                                    <input type="text" class="form-control" id="replicateQuantity" name="replicateQuantity" value="" />
+                                            </div>                                      
+                                                <div class="col-md-6 mb-3">                        
+                                                   <label for="stockQuantity" >Stock quantity</label>
+                                                   <input type="text" class="form-control" id="stockQuantity" name="stockQuantity" value="" />
+                                                </div>
+                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                            <label for="bookPrice">Price</label>
+                                            <input type="text" class="form-control" id="bookPrice" name="bookPrice" value="" />
+                                           </div>
+                                           <div class="col-md-6 mb-3">
+                                                  <label for="bookSummary" >Summary</label>
+                                                  <textarea class="form-control" id="bookSummary" name="bookSummary"></textarea>                                         
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+                                    </div>
+
+
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-primary" value="save" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Return Book</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="alert alert-danger">
+                                Are you sure to return this book?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="#" class="btn btn-danger" id="delRef">Sure</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script src="//lib.baomitu.com/twitter-bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+
+<script src="../static/js/books.js" th:src="@{/js/books.js}"></script>
+</body>
+</html>
